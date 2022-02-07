@@ -3,13 +3,21 @@ add_action('wp_footer', "scripts");
 add_action('wp_enqueue_scripts', "styles");
 add_action('after_setup_theme', 'myMenu');
 add_action('widgets_init', 'registerMyWidget');
+add_shortcode('myShortcode', 'shortcodeFunc');
+
+
+function shortcodeFunc(){
+   return 'I`m here and i am SHORTCODE :3';
+}
 
 function myMenu(){
     register_nav_menu('top', "Top Menu");
     register_nav_menu('top1', "Top Menu 1");
     add_theme_support('title-tag');
+    add_theme_support( 'post-formats', array( 'aside', 'gallery', "video" ) );
     add_theme_support('post-thumbnails', array('post'));
     add_image_size('post_thumbnail', 1300, 500, true);
+
 }
 
 function scripts(){
@@ -25,6 +33,7 @@ function styles(){
     wp_enqueue_style('layout', get_template_directory_uri().'/assets/css/layout.css');
     wp_enqueue_style('media-queries', get_template_directory_uri().'/assets/css/media-queries.css');
 }
+
 
 function registerMyWidget(){
     register_sidebar(array(
