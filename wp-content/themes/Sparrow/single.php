@@ -1,5 +1,5 @@
 <?php get_header() ?>
-<?php get_post() ?>
+<?php if (have_posts()): while (have_posts()): the_post();?>
     <div class="content-outer">
         <div id="page-content" class="row">
 
@@ -9,4 +9,6 @@
         </div>
     </div>
 
+<?php endwhile?>
+<?php endif?>
 <?php get_footer() ?>
