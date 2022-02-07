@@ -6,6 +6,32 @@ add_action('widgets_init', 'registerMyWidget');
 add_shortcode('myShortcode', 'shortcodeFunc');
 
 add_action( 'init', 'register_post_types' );
+// хук для регистрации
+add_action( 'init', 'create_taxonomy' );
+function create_taxonomy(){
+    register_taxonomy( 'skills', [ 'portfolio', 'post' ], [
+        'label'                 => '', // определяется параметром $labels->name
+        'labels'                => [
+            'name'              => 'Skills',
+            'singular_name'     => 'Skill',
+            'search_items'      => 'Search Skills',
+            'all_items'         => 'All Skills',
+            'view_item '        => 'View Skill',
+            'parent_item'       => 'Parent Skill',
+            'parent_item_colon' => 'Parent Skill:',
+            'edit_item'         => 'Edit Skill',
+            'update_item'       => 'Update Skill',
+            'add_new_item'      => 'Add New Skill',
+            'new_item_name'     => 'New Skill Name',
+            'menu_name'         => 'Skill',
+            'back_to_items'     => '← Back to Genre',
+        ],
+        'description'           => 'Skills', // описание таксономии
+        'public'                => true,
+        'hierarchical'          => false,
+        'rewrite'               => true,
+    ] );
+}
 function register_post_types(){
     register_post_type( 'portfolio', [
         'label'  => null,
@@ -40,7 +66,7 @@ function register_post_types(){
         //'map_meta_cap'      => null, // Ставим true чтобы включить дефолтный обработчик специальных прав
         'hierarchical'        => false,
         'supports'            => [ 'title', 'editor', 'author', 'thumbnail', 'excerpt' ], // 'title','editor','author','thumbnail','excerpt','trackbacks','custom-fields','comments','revisions','page-attributes','post-formats'
-        'taxonomies'          => [],
+        'taxonomies'          => ['skills',],
         'has_archive'         => false,
         'rewrite'             => true,
         'query_var'           => true,
